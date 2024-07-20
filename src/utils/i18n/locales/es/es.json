@@ -1,0 +1,8 @@
+{
+  "mainTitle": "gastos de la semana",
+  "chartTitle": "gastos - esta semana",
+  "chartAltTitle": "gastos - semama anterior",
+  "varianceToDay": "a dia anterior",
+  "daysLabel": ["LUN", "MAR", "MIE", "JUE", "VIE", "SAB", "DOM"],
+  "dailyExpense": "Gastos del Dia"
+}

@@ -1,0 +1,8 @@
+{
+  "mainTitle": "passé cette semaine",
+  "chartTitle": "dépenses - cette semaine",
+  "chartAltTitle": "dépenses - semaine précédente",
+  "varianceToDay": "à la veille",
+  "daysLabel": ["LUN", "MAR", "MER", "JEU", "VEN", "SAM", "DIM"],
+  "dailyExpense": "Dépense Quotidienne"
+}

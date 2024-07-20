@@ -1,0 +1,8 @@
+{
+  "mainTitle": "spent this week",
+  "chartTitle": "expenses - this week",
+  "chartAltTitle": "expenses - previous week",
+  "varianceToDay": "to prev day",
+  "daysLabel": ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+  "dailyExpense": "Daily Expense"
+}
