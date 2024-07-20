@@ -9,7 +9,6 @@ export const CHART_DATA = {
         [500, 14, 567, 123, 543, 235, 125],
       ],
       backgroundColor: "#E45F4A",
-      borderColor: "#E45F4A",
       borderRadius: 5,
       borderWidth: 1,
     },
