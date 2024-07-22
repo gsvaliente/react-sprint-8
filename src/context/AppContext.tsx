@@ -17,7 +17,7 @@ const initContext = {
   dayExpense: 0,
   numOfData: 0,
   label: "",
-  dispatch: (type: any) => {},
+  dispatch: (_type: any) => {},
 };
 
 const AppContext = createContext(initContext);
