@@ -1,100 +1,37 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { CHART_DATA } from "../data/data";
+import { AppStateType, reducer, REDUCER_ACTION_TYPE } from "./reducer";
 
 interface AppProviderProps {
   children: JSX.Element | JSX.Element[];
 }
 
-enum AppActionType {
-  BALANCE = "BALANCE",
-  CHANGE_DAY = "CHANGE_DAY",
-  VARIATION = "VARIATION",
-  PREV_WEEK = "PREV_WEEK",
-  NEXT_WEEK = "NEXT_WEEK",
-}
+const initContext = {
+  week: 0,
+  balance: 0,
+  expenses: [0],
+  currentDay: 0,
+  variation: 0,
+  dayExpense: 0,
+  numOfData: 0,
+  label: "",
+  dispatch: (type) => {},
+};
 
-interface AppActions {
-  type: AppActionType;
-  payload: {
-    index: number;
-    label: string;
-  };
-}
-
-interface AppState {
-  week: number;
-  balance: number;
-  expenses: number[];
-  currentDay: number;
-  variation: number;
-  dayExpense: number;
-  numOfData: number;
-}
-
-const AppContext = createContext({});
+const AppContext = createContext(initContext);
 
 const NUM_OF_WEEKS = CHART_DATA.datasets[0].data.length - 1;
 
-const initialState = {
+const initialState: AppStateType = {
   week: NUM_OF_WEEKS,
   balance: 0,
   expenses: CHART_DATA.datasets[0].data[NUM_OF_WEEKS],
   currentDay: 6,
   variation: 16.7,
-  dayExpense: CHART_DATA.datasets[0].data[NUM_OF_WEEKS].at(6),
+  dayExpense: CHART_DATA.datasets[0].data[NUM_OF_WEEKS]?.at(6) || 0,
   numOfData: CHART_DATA.datasets[0].data.length,
+  label: "",
 };
-
-function reducer(state: AppState, action: AppActions) {
-  switch (action.type) {
-    case "BALANCE": {
-      const total = state.expenses.reduce(
-        (acc: number, curr: number) => acc + curr,
-        0,
-      );
-      return { ...state, balance: total };
-    }
-    case "PREV_WEEK": {
-      const newWeek = state.week - 1;
-      return {
-        ...state,
-        week: newWeek,
-        expenses: CHART_DATA.datasets[0].data[newWeek],
-        dayExpense: CHART_DATA.datasets[0].data[newWeek].at(6),
-      };
-    }
-    case "NEXT_WEEK": {
-      const newWeek = state.week + 1;
-      return {
-        ...state,
-        week: newWeek,
-        expenses: CHART_DATA.datasets[0].data[newWeek],
-        dayExpense: CHART_DATA.datasets[0].data[newWeek].at(6),
-      };
-    }
-    case "CHANGE_DAY": {
-      return {
-        ...state,
-        currentDay: action.payload.index,
-        dayExpense: state.expenses[action.payload.index],
-        label: action.payload.label,
-      };
-    }
-    case "VARIATION": {
-      const prevDay = state.currentDay - 1;
-      const total =
-        prevDay < 0
-          ? 0
-          : ((state.expenses[state.currentDay] - state.expenses[prevDay]) /
-              state.expenses[prevDay]) *
-            100;
-      return { ...state, variation: total.toFixed(1) };
-    }
-
-    default:
-      throw new Error(`${action.type} is unknown`);
-  }
-}
 
 export function AppProvider({ children }: AppProviderProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -111,8 +48,10 @@ export function AppProvider({ children }: AppProviderProps) {
   } = state;
 
   useEffect(() => {
-    dispatch({ type: "VARIATION" });
-    dispatch({ type: "BALANCE" });
+    dispatch({
+      type: REDUCER_ACTION_TYPE.VARIATION,
+    });
+    dispatch({ type: REDUCER_ACTION_TYPE.BALANCE });
   }, [currentDay]);
 
   return (

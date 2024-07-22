@@ -28,7 +28,7 @@ export function BarChart() {
   const { dispatch, currentDay, expenses } = useAppContext();
   const [selectedIndex, setSelectedIndex] = useState(currentDay);
 
-  const translatedLabels = t("daysLabel", { returnObjects: true });
+  const translatedLabels: string[] = t("daysLabel", { returnObjects: true });
 
   const options = {
     onClick: (_: any, elements: any[]) => {
@@ -50,7 +50,7 @@ export function BarChart() {
 
   const data = {
     ...CHART_DATA,
-    labels: translatedLabels,
+    labels: translatedLabels.map((label: string | object) => label.toString()),
     datasets: CHART_DATA.datasets.map((dataset) => ({
       ...dataset,
       data: expenses,
