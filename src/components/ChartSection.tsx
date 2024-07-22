@@ -14,7 +14,7 @@ export function ChartSection() {
 
   return (
     <div className="space-y-2 rounded-xl bg-[#FFFEFB] px-5 py-3">
-      <div className="text-xl font-bold uppercase">
+      <div className="text-md font-bold uppercase sm:text-xl">
         {week === numOfData - 1 ? t("chartTitle") : t("chartAltTitle")}
       </div>
       <BarChart />
