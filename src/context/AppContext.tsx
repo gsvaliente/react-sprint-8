@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { CHART_DATA } from "../data/data";
@@ -16,7 +17,7 @@ const initContext = {
   dayExpense: 0,
   numOfData: 0,
   label: "",
-  dispatch: (type: REDUCER_ACTION_TYPE) => {},
+  dispatch: (type: any) => {},
 };
 
 const AppContext = createContext(initContext);
